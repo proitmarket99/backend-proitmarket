@@ -1,0 +1,106 @@
+[
+    {
+      "section": "General",
+      "specs": [
+        { "label": "Sales Package", "value": "Laptop, Power Adaptor, User Guide, Warranty Documents" },
+        { "label": "Model Number", "value": "P1403CVA-S60939WS" },
+        { "label": "Part Number", "value": "90NX0871-M01230" },
+        { "label": "Model Name", "value": "15IAX9" },
+        { "label": "Series", "value": "Expertbook P1" },
+        { "label": "Color", "value": "Misty Grey" },
+        { "label": "Type", "value": "Thin and Light Laptop" },
+        { "label": "Suitable For", "value": "Processing & Multitasking" },
+        { "label": "Power Supply", "value": "TYPE-C, 65W AC Adapter" },
+        { "label": "MS Office Provided", "value": "Yes" }
+      ]
+    },
+    {
+      "section": "Processor And Memory Features",
+      "specs": [
+        { "label": "Processor Brand", "value": "Intel" },
+        { "label": "Processor Name", "value": "Core i5" },
+        { "label": "Processor Generation", "value": "13th Gen" },
+        { "label": "SSD", "value": "Yes" },
+        { "label": "SSD Capacity", "value": "512 GB" },
+        { "label": "RAM", "value": "32 GB" },
+        { "label": "RAM Type", "value": "DDR5" },
+        { "label": "Processor Variant", "value": "13420H" },
+        { "label": "Clock Speed", "value": "Upto 4.6 GHz" },
+        { "label": "Cache", "value": "12 MB" },
+        { "label": "Graphics Processor", "value": "NVIDIA GeForce RTX 2050" },
+        { "label": "Number of Cores", "value": "8" },
+        { "label": "Storage Type", "value": "SSD" }
+      ]
+    },
+    {
+      "section": "Operating System",
+      "specs": [
+        { "label": "Operating System", "value": "Windows 11 Home" },
+        { "label": "Supported Operating System", "value": "Windows 11 Home" }
+      ]
+    },
+    {
+      "section": "Port And Slot Features",
+      "specs": [
+        { "label": "Mic In", "value": "Yes" },
+        { "label": "USB Port", "value": "2 x USB 3.2 Gen 1 Type-A, 2 x USB 3.2 Gen 2 Type-C support display / power delivery" },
+        { "label": "HDMI Port", "value": "1 x HDMI 1.4" }
+      ]
+    },
+    {
+      "section": "Display And Audio Features",
+      "specs": [
+        { "label": "Touchscreen", "value": "No" },
+        { "label": "Screen Size", "value": "35.56 cm (14 Inch)" },
+        { "label": "Screen Resolution", "value": "1920 x 1080 Pixel" },
+        { "label": "Screen Type", "value": "FHD, 16:9, Anti-glare display, NTSC: 45%" },
+        { "label": "Speaker", "value": "Built-in speaker" },
+        { "label": "Internal Mic", "value": "Built-in array microphone" },
+        { "label": "Sound Properties", "value": "Audio by Dirac" },
+        { "label": "Refresh Rate", "value": "60 Hz" }
+      ]
+    },
+    {
+      "section": "Connectivity Features",
+      "specs": [
+        { "label": "Wireless LAN", "value": "Wi-Fi 6(802.11ax) (Dual band) 2*2" },
+        { "label": "Bluetooth", "value": "v5.4" }
+      ]
+    },
+    {
+      "section": "Dimensions",
+      "specs": [
+        { "label": "Dimensions", "value": "324 x 214 x 197 mm" },
+        { "label": "Weight", "value": "1.42 Kg" }
+      ]
+    },
+    {
+      "section": "Additional Features",
+      "specs": [
+        { "label": "Disk Drive", "value": "Not Available" },
+        { "label": "Web Camera", "value": "720p HD camera With privacy shutter" },
+        { "label": "Finger Print Sensor", "value": "Yes"},
+        { "label": "Security Chip", "value": "Trusted Platform Module (TPM) 2.3" },
+        { "label": "Keyboard", "value": "Backlit Chiclet Keyboard"},
+        {"label": "Backlit Keyboard", "value": "Yes"} 
+      ]
+    },
+    {
+      "section": "Warranty",
+      "specs": [
+        { "label": "Warranty Summary", "value": "1 Year Onsite Warranty" },
+        { "label": "Warranty Service Type", "value": "Onsite" },
+        { "label": "Covered in Warranty", "value": "Manufacturer Defect" },
+        { "label": "Not Covered in Warranty", "value": "Physical Damage" },
+        {"label": "Domestic Warranty", "value": "1 Year"}
+      ]
+    },
+    {
+      "section": "Manufacturing & Packaging Info",
+      "specs": [
+        { "label": "Manufactured by", "value": "TECH FRONT( CHONGQING) Computer Co. Ltd, NO 18, Zongbao Road, Shapingba Dist,Chongquing, China" },
+        { "label": "Imported by", "value": "# 402, 4th Floor Supreme Chamber , Veera Desai Road, Andheri (w), Mumbai : 400053" },
+        { "label": "Packed by", "value": "TECH FRONT( CHONGQING) Computer Co. Ltd, NO 18, Zongbao Road, Shapingba Dist,Chongquing, China" }
+      ]
+    }
+  ]

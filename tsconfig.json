@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist",
+      "baseUrl": ".",
+      "paths": {
+        "*": ["node_modules/*"]
+      },
+      "typeRoots": ["./types", "./node_modules/@types"]
+    },
+    "include": ["**/*", "@types/**/*"], // Adjust this to your project's structure
+    "exclude": ["node_modules"]
+    
+  }
+  

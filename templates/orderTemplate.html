@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            padding: 2rem;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #004850;
+            border-radius: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 1240px;
+            width: 100%;
+        }
+
+        img {
+            width: 400px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .table-header{
+          background-color: #2f5597;
+          color: #fff;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          border: none !important;
+        }
+
+        th {
+            border-bottom: 2px solid;
+            border-top: 2px solid;
+            text-align: left;
+            padding: 8px;
+        }
+
+        td {
+            border-bottom: 1px solid #dddddd;
+            border-top: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+
+    <title>ProitMarket Order Template</title>
+</head>
+
+<body>
+    <div class="header" style="padding-bottom: 2rem;justify-content: space-between;">
+        <img src="https://drcbd-cloud.s3.ap-southeast-1.amazonaws.com/drcbd-logo.png">
+        <div class="nav">
+            <h3>ProitMarket Limited</h3>
+            <!-- <p>255 Bangna-Trad 3, Bangna-Trad Rd.<br>
+                Bangna Neua, Bangna, Bangkok 10260<br>
+                Tax ID: 0105564048406<br/>
+                Phone: +66 65 1416999 | Email: info@drcbdgroup.com<br/>Website: www.drcbdgrup.com
+            </p> -->
+        </div>
+    </div>
+    <div class="header" style="justify-content: space-between;">
+        <div>
+            <h4>CUSTOMER CODE : {{userId}}</h4>
+            <h4 style="display: flex;"><span>NAME : </span><span>{{fullName}}</span></h4>
+            <h4 style="display:flex;"><span>Contact Number: </span> <span>{{deliveryAddress.contactNumber}}</span></h4>
+            <h4>SHIP TO ADDRESS : {{deliveryAddress.address}},{{deliveryAddress.city}},{{deliveryAddress.postalCode}}
+            </h4>
+            <h4>CONTACT NAME: {{deliveryAddress.contactNumber}}</h4>
+        </div>
+        <div style="border-left: 2px solid ;padding-left: 1rem; width: 50%;">
+            <h4>ORDER #{{orderId}}</h4>
+            <h4>DATE</h4>
+            <p>{{orderTime}}</p>
+            <h4>PAYMENT METHOD</h4>
+            <p>{{paymentType}}</p>
+        </div>
+    </div>
+    <table>
+        <tr class="table-header">
+            <th>PRODUCT</th>
+            <th>QTY</th>
+            <th>PRICE</th>
+            <th>DELIVERY CHARGE</th>
+            <th>TOTAl</th>
+        </tr>
+        {{#each products as |product|}}
+        <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.deliveryCharge}}</td>
+            <td>{{product.totalPrice}}</td>
+        </tr>
+        {{/each}}
+    </table>
+    <div class="header" style="justify-content: space-between;padding: 2rem 0;">
+        <h4><span>Order Status:- </span><span>{{orderStatus}}</span></h4>
+        <div style="width:260px">
+            <h4 style="display:flex;justify-content:space-between;align-items:center"><span>SUBTOTAL</span>
+                <span>{{totalPrice}}</span>
+            </h4>
+            <h4 style="display:flex;justify-content:space-between;align-items:center"><span>DELIVERY CHARGE</span>
+                <span>{{totalDeliveryCharge}}</span></h4>
+            <h4 style="    border-bottom: 2px solid ;
+        border-top: 2px solid;display:flex;justify-content:space-between;align-items:center"><span>TOTAL</span>
+                <span>{{price}}</span></h4>
+        </div>
+    </div>
+    <div class="header" style="justify-content: space-between;">
+        <div>
+            <h3>THANK YOU!</h3>
+            <P style="width: 500px;">The origins of the first constellations date back to prehistoric times.
+                Their purpose was to tell stories of their beliefs, experiences, creation,
+                or mythology
+            </P>
+        </div>
+        <div>
+            <p>@proitmarket</p>
+            <p>@proitmarket</p>
+            <p>www.proitmarket.com</p>
+            <p>info@proitmarket.com</p>
+        </div>
+    </div>
+</body>
+
+</html>
