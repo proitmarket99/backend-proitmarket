@@ -23,6 +23,7 @@ const PORT = process.env.PORT || 8080;
 // ✅ Make sure these match *exactly* (no trailing slashes)
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:5174",
   "https://frontend-proitmarket.vercel.app"
 ];
 

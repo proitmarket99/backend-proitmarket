@@ -5,6 +5,7 @@ const submenuSchema = new mongoose.Schema(
     menuId: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
     menuName: { type: String, required: true,unique: true }, // e.g. "COMPUTERS & LAPTOPS"
     slug: { type: String, required: true,unique: true }, // e.g. "computers-&-laptops"
+    icon:{ type: String,},
     itemIndex:{type:Number},
     isActive:{type:Boolean,default:true}
   },

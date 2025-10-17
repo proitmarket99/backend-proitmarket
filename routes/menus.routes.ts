@@ -8,6 +8,7 @@ import {
   update_category,
   update_section,
   update_subcategory,
+  updateMenus,
 } from "../controllers/menus.controller";
 
 const router = express.Router();
@@ -36,6 +37,7 @@ router.post(
   "/update_subcategories",
   update_subcategory as unknown as (req: Request, res: Response) => void
 );
+router.post("/update_menu", updateMenus as unknown as (req: Request, res: Response) => void)
 router.get('/get_menu_by_id/:menuId', get_menu_by_id as unknown as (req: Request, res: Response) => void);
 router.get('/get_subcategories_by_id/:categoryId', get_subcategories_by_id as unknown as (req: Request, res: Response) => void);
 export default router;

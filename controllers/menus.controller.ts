@@ -3,6 +3,7 @@ import Category from "../models/category.model";
 import Subcategory from "../models/subcategory.model";
 import Mainmenu from "../models/mainMenus.model";
 import { console } from "inspector";
+import { uploadToS3 } from "../utils/aws";
 
 const generateSlug = (text: string) =>
   text
@@ -16,6 +17,7 @@ export const add_category = async (
 ): Promise<Response> => {
   try {
     const { menuName, mainmenuId } = req.body;
+    const file = req.file;
     // Step 1: Create main menu (optional)
     const categorySlug = generateSlug(menuName);
     const category = await Category.findOne({
@@ -27,11 +29,24 @@ export const add_category = async (
         .status(400)
         .json({ message: "Menu already exists", status: false });
     }
-
+    let imageUrl = "";
+    if (file) {
+      try {
+        imageUrl = await uploadToS3(file.buffer, file.mimetype, "categories");
+      } catch (uploadError) {
+        console.error("Error uploading to S3:", uploadError);
+        return res.status(500).json({
+          message: "Error uploading image",
+          status: false,
+          error: uploadError,
+        });
+      }
+    }
     const newCategory = new Category({
       menuName: menuName,
       slug: categorySlug,
       mainmenuId: mainmenuId,
+      icon: imageUrl || undefined,
     });
     await newCategory.save();
 
@@ -54,6 +69,7 @@ export const add_subcategory = async (
 ): Promise<Response> => {
   try {
     const { menuName, menuId } = req.body;
+    const file = req.file;
     // Step 1: Create main menu (optional)
     const subcategorySlug = generateSlug(menuName);
     const subcategory = await Subcategory.findOne({
@@ -65,11 +81,24 @@ export const add_subcategory = async (
         .status(400)
         .json({ message: "Menu already exists", status: false });
     }
-
+    let imageUrl = "";
+    if (file) {
+      try {
+        imageUrl = await uploadToS3(file.buffer, file.mimetype, "categories");
+      } catch (uploadError) {
+        console.error("Error uploading to S3:", uploadError);
+        return res.status(500).json({
+          message: "Error uploading image",
+          status: false,
+          error: uploadError,
+        });
+      }
+    }
     const newSubcategory = new Subcategory({
       menuName: menuName,
       slug: subcategorySlug,
       menuId: menuId,
+      icon: imageUrl || undefined,
     });
     await newSubcategory.save();
 
@@ -250,19 +279,20 @@ export const get_menu_by_id = async (
     });
   }
 };
-export const get_subcategories_by_id = async (
-  req: Request,
-  res: Response
-) => {
+export const get_subcategories_by_id = async (req: Request, res: Response) => {
   try {
     const { categoryId } = req.params;
-    const category = await Category.findById(categoryId).populate("mainmenuId").select("menuName mainmenuId");
-    const subcategories = await Subcategory.find({ menuId: categoryId }).select("-createdAt -updatedAt -__v");
+    const category = await Category.findById(categoryId)
+      .populate("mainmenuId")
+      .select("menuName mainmenuId");
+    const subcategories = await Subcategory.find({ menuId: categoryId }).select(
+      "-createdAt -updatedAt -__v"
+    );
     return res.status(200).send({
       message: "Subcategories fetched successfully",
       status: true,
       data: subcategories,
-      category: category
+      category: category,
     });
   } catch (error) {
     console.log("Error in get_subcategories_by_id:", error);
@@ -276,6 +306,7 @@ export const get_subcategories_by_id = async (
 export const update_section = async (req: Request, res: Response) => {
   try {
     const { sections } = req.body;
+    const file = req.file;
     for (const section of sections) {
       const { menuName, itemIndex, _id } = section;
       const slug = generateSlug(menuName);
@@ -286,7 +317,14 @@ export const update_section = async (req: Request, res: Response) => {
       }
       await Mainmenu.findOneAndUpdate(
         { _id: _id },
-        { menuName: menuName, slug: slug, itemIndex: itemIndex }
+        {
+          menuName: menuName,
+          slug: slug,
+          itemIndex: itemIndex,
+          icon: file
+            ? await uploadToS3(file.buffer, file.mimetype, "categories")
+            : undefined,
+        }
       );
     }
     return res.status(200).json({
@@ -303,6 +341,7 @@ export const update_section = async (req: Request, res: Response) => {
 export const update_category = async (req: Request, res: Response) => {
   try {
     const { category } = req.body;
+    const file = req.file;
     for (const section of category) {
       const { menuName, itemIndex, _id } = section;
       const slug = generateSlug(menuName);
@@ -317,6 +356,9 @@ export const update_category = async (req: Request, res: Response) => {
           menuName: menuName,
           slug: slug,
           itemIndex: itemIndex,
+          icon: file
+            ? await uploadToS3(file.buffer, file.mimetype, "categories")
+            : undefined,
         }
       );
     }
@@ -334,6 +376,7 @@ export const update_category = async (req: Request, res: Response) => {
 export const update_subcategory = async (req: Request, res: Response) => {
   try {
     const { subCategories } = req.body;
+    const file = req.file;
     for (const section of subCategories) {
       const { menuName, itemIndex, _id } = section;
       const slug = generateSlug(menuName);
@@ -348,6 +391,9 @@ export const update_subcategory = async (req: Request, res: Response) => {
           menuName: menuName,
           slug: slug,
           itemIndex: itemIndex,
+          icon: file
+            ? await uploadToS3(file.buffer, file.mimetype, "categories")
+            : undefined,
         }
       );
     }
@@ -360,4 +406,44 @@ export const update_subcategory = async (req: Request, res: Response) => {
     console.error("Update error:", error);
     return res.status(500).json({ status: false, message: "Server error." });
   }
+};
+
+export const updateMenus = async (req: Request, res: Response) => {
+  try {
+    const { menuId } = req.body;
+    const menu = await Category.findById(menuId);
+    if (!menu) {
+      return res.status(404).json({
+        status: false,
+        message: "Menu not found",
+      });
+    }
+    let iconUrl = "";
+    if (
+      req.files &&
+      (req.files as unknown as Express.Multer.File[]).length > 0
+    ) {
+      const file = req.files as unknown as Express.Multer.File[];
+      const uploadResults = await uploadToS3(
+        file[0].buffer,
+        file[0].mimetype,
+        "banners"
+      );
+      iconUrl = uploadResults; // Take the first uploaded image URL
+    }
+    const menuData = await Category.findOneAndUpdate(
+      { _id: menuId },
+      {
+        menuName: menu.menuName,
+        slug: menu.slug,
+        itemIndex: menu.itemIndex,
+        icon: iconUrl,
+      }, {new: true}
+    );
+    return res.status(200).json({
+      status: true,
+      message: "Section updated successfully.",
+      data: menuData,
+    });
+  } catch (error) {}
 };
